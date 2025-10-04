@@ -1,0 +1,24 @@
+node_modules/
+package-lock.json
+# expo
+.expo/
+.expo-shared/
+dist/
+build/
+
+# native artifacts (om du kör prebuild)
+android/
+ios/
+
+# keys & secrets
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+.env*
+.env.*.local
+
+# editors & OS
+.vscode/
+.DS_Store
+npm-debug.log*
