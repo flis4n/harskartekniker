@@ -46,16 +46,17 @@ export const icons = {
 
 export const screenStyles = StyleSheet.create({
   screenContainer: {
-    marginLeft: "10%",
-    marginRight: "10%",
-    marginTop: 75,
+   marginLeft: "10%",
+   marginRight: "10%",
+   marginTop: 75,
   },
+
   firstScreenContainer: {
-    marginLeft: "10%",
-    marginRight: "10%",
+    marginLeft: "5%",
+    marginRight: "5%",
     marginTop: "30%",
   },
-  background: { backgroundColor: "#fafafa" },
+  background: { backgroundColor: "#efefef" },
 });
 
 export const sectionStyles = StyleSheet.create({
@@ -90,14 +91,14 @@ export const textStyles = StyleSheet.create({
     marginRight: "auto",
     ...FONTS,
     fontSize: 40,
-    marginBottom: 50,
+    marginBottom: 30,
   },
   headerText: {
-    textAlign: "center",
+    textAlign: "left",
     ...FONTS,
-    fontSize: 10,
-    marginLeft: 30,
-    marginRight: 30,
+    fontSize: 9,
+    marginLeft: 10,
+    marginRight: 10,
   },
 });
 
@@ -108,7 +109,7 @@ export const cardStyles = StyleSheet.create({
     alignItems: "center",
     marginLeft: "auto",
     marginRight: "auto",
-    backgroundColor: "#efefef",
+    backgroundColor: BACKGROUND_COLOR,
   },
   cardsContainer: {
     width: "100%",

@@ -1,35 +1,36 @@
+// App/Screens/HomeScreen/index.js
 import React from "react";
 import translations from "../../translations";
-import { Text, View, ScrollView } from "react-native";
-import {
-  screenStyles,
-  cardStyles,
-  textStyles,
-  sectionStyles,
-} from "../../Styles/StyleSheet";
+import { Text, View } from "react-native";
+import { screenStyles, textStyles, sectionStyles } from "../../Styles/StyleSheet";
 import { SectionsList } from "./sections";
 import { MiunHeader } from "./header";
 
-const { h1, h3, p, headerText } = textStyles;
-const { background, screenContainer } = screenStyles;
+const { h1, p } = textStyles;
+const { background, firstScreenContainer } = screenStyles;
 
-function HomeScreen({ navigation }) {
-  return (
-    <>
+export default function HomeScreen({ navigation }) {
+  // Renderas ovanför grid-listan
+  const Header = (
+    <View style={{ paddingHorizontal: 2, paddingTop: 2 }}>
+      {/* <MiunHeader /> */}
+      <View style={[sectionStyles.textContainer, { marginTop: 8 }]}>
+        <Text style={h1}>Power Up!</Text>
+        <Text style={p}>{translations.t("h_text")}</Text>
+      </View>
+    </View>
+  );
+  const Footer = (
+    <View style={{ paddingHorizontal: 0, paddingVertical: 0 }}>
       <MiunHeader />
-      <ScrollView style={background}>
-        <View style={screenContainer}>
-          <View style={sectionStyles.textContainer}>
-            <Text style={h1}>Power Up!</Text>
-            <Text style={p}>{translations.t("h_text")}</Text>
-          </View>
-          <View style={cardStyles.cardsContainer}>
-            <SectionsList navigation={navigation} />
-          </View>
-        </View>
-      </ScrollView>
-    </>
+    </View>
+  );
+  return (
+    <SectionsList
+      navigation={navigation}
+      header={Header}
+      footer={Footer}
+      contentContainerStyle={[background, firstScreenContainer, { paddingBottom: 0 }]}
+    />
   );
 }
-
-export default HomeScreen;

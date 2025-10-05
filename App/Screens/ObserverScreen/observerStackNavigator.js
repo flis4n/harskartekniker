@@ -1,11 +1,11 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   useIsFocused,
   getFocusedRouteNameFromRoute,
   StackActions,
 } from "@react-navigation/native";
 
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { ObserverScreen } from "./";
 import {
@@ -28,39 +28,31 @@ const screens = [
   { name: "ThreatOfForce", screen: ThreatOfForceScreen },
 ];
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function StackNavigator({ navigation, route }) {
-  const routeName = getFocusedRouteNameFromRoute(route);
   const isFocused = useIsFocused();
+  const stackRef = useRef(null);
 
-  useLayoutEffect(() => {
-    const showInitialRoute =
-      isFocused && routeName !== undefined && routeName !== "Observer";
-    showInitialRoute && navigation.dispatch(StackActions.popToTop("Observer"));
-  }, [isFocused]);
+useEffect(() => {
+    if (!isFocused) return;
+    const focused = getFocusedRouteNameFromRoute(route) ?? "ObserverMain";
+    if (focused !== "ObserverMain") {
+      stackRef.current?.dispatch(StackActions.popToTop());
+    }
+  }, [isFocused, route]);
 
   return (
-    <Stack.Navigator initialRouteName="Observer">
-      <Stack.Screen
-        key={`o_initial`}
-        name="Observer"
-        component={ObserverScreen}
-        options={{ headerShown: false }}
-      />
-      {screens.map((screen) => {
-        return (
-          <Stack.Screen
-            key={`o_${screen.name}`}
-            name={screen.name}
-            component={screen.screen}
-            options={{
-              title: null,
-              headerBackTitleVisible: false,
-            }}
-          />
-        );
-      })}
+    <Stack.Navigator
+      id="ObserverStack" 
+      ref={stackRef}     
+      initialRouteName="ObserverMain"
+      screenOptions={{ headerShown: false }} 
+    >
+      <Stack.Screen name="ObserverMain" component={ObserverScreen} />
+      {screens.map(({ name, screen }) => (
+        <Stack.Screen key={name} name={name} component={screen} />
+      ))}
     </Stack.Navigator>
   );
 }

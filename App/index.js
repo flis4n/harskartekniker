@@ -10,6 +10,15 @@ const getLocale = () => {
   const appLocale = currentLocale.includes("sv") ? "sv-SV" : "en-US";
   return appLocale;
 };
+/* const Link = (
+    <View style={{ alignItems: "center", paddingVertical: 8 }}>
+      <Pressable onPress={() => navigation.getParent()?.navigate("PrivacyPolicy")}>
+        <Text style={{ textDecorationLine: "underline", color: "#007AFF" }}>
+          Privacy Policy
+        </Text>
+      </Pressable>
+    </View>
+  );*/
 
 export default function App() {
   i18n.locale = getLocale();

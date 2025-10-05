@@ -31,7 +31,7 @@ export const counterStrategiesSv = {
   o_withholdInformationTitle: "Uppmuntra personen att begära transparens",
   o_withholdInformationSubTitle: `Någon har undanhållit information eller utestängt någon annan`,
   o_withholdInformationContent: `Någon har undanhållit information eller utestängt någon annan.\n\nUtgå från att undanhållandet sker på grund av dålig informationsstruktur eller att personer är omedvetna om sitt handlande och dess konsekvenser.\n\nUppmuntra personen som blivit utestängd att påminna de övriga om att hen också ingår i arbetsgruppen och  har rätt till information och att delta i beslut.`,
-  o_doubleBindTitle: "Dubbebelöna",
+  o_doubleBindTitle: "Dubbelbelöna",
   o_doubleBindSubTitle: `Någon har försökt utsätta någon annan för dubbelbestraffning`,
   o_doubleBindContent: `Utgå ifrån att alla gör så gott de kan och backa den som utsätts genom att påpeka att kritiken är orimlig.\n\nDu kan också hjälpa personen genom att tydliggöra för hen att den utsatts för dubbelbestraffning. Uppmuntra personen att vara tydlig med hur hen upplever de dubbla budskapen.`,
   o_heapBlameTitle: "Intellektualisera",

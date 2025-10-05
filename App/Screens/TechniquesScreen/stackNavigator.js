@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   useIsFocused,
   getFocusedRouteNameFromRoute,
   StackActions,
 } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { TechniquesScreen } from "./";
 import {
@@ -27,40 +27,31 @@ const screens = [
   { name: "ThreatOfForce", screen: ThreatOfForceScreen },
 ];
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function StackNavigator({ navigation, route }) {
-  const routeName = getFocusedRouteNameFromRoute(route);
   const isFocused = useIsFocused();
+  const stackRef = useRef(null);
 
   useEffect(() => {
-    const showInitialRoute =
-      isFocused && routeName !== undefined && routeName !== "Techniques";
-    showInitialRoute &&
-      navigation.dispatch(StackActions.popToTop("Techniques"));
-  }, [isFocused]);
-
+      if (!isFocused) return;
+      const focused = getFocusedRouteNameFromRoute(route) ?? "TechniquesMain";
+      if (focused !== "TechniquesMain") {
+        stackRef.current?.dispatch(StackActions.popToTop());
+      }
+  }, [isFocused, route]);
   return (
-    <Stack.Navigator initialRouteName="Techniques">
-      <Stack.Screen
-        key={`t_initial`}
-        name="Techniques"
-        component={TechniquesScreen}
-        options={{ headerShown: false }}
-      />
-      {screens.map((screen) => {
-        return (
-          <Stack.Screen
-            key={`t_${screen.name}`}
-            name={screen.name}
-            component={screen.screen}
-            options={{
-              title: null,
-              headerBackTitleVisible: false,
-            }}
-          />
-        );
-      })}
-    </Stack.Navigator>
-  );
+       <Stack.Navigator
+         id="TechniquesStack" 
+         ref={stackRef}     
+         initialRouteName="TechniquesMain"
+         screenOptions={{ headerShown: false }} 
+       >
+         <Stack.Screen name="TechniquesMain" component={TechniquesScreen} />
+         {screens.map(({ name, screen }) => (
+           <Stack.Screen key={name} name={name} component={screen} />
+         ))}
+       </Stack.Navigator>
+     ); 
+
 }

@@ -1,23 +1,18 @@
+
 import * as React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import BottomNavigator from "./bottomNavigator";
+import PrivacyPolicyScreen from '../Screens/HomeScreen/PrivacyPolicyScreen';
 
-import HomeScreen from "../Screens/HomeScreen";
+const Stack = createNativeStackNavigator();
 
-import AttackerStackNavigator from "../Screens/AttackerScreen/attackerStackNavigator";
-import VictimStackNavigator from "../Screens/VictimScreen/victimStackNavigator";
-import ObserverStackNavigator from "../Screens/ObserverScreen/observerStackNavigator";
-import TechniquesStackNavigator from "../Screens/TechniquesScreen/stackNavigator";
-
-const Stack = createStackNavigator();
-
-export default function StackNavigator() {
+export default function RootStackNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Victim" component={VictimStackNavigator} />
-      <Stack.Screen name="Observer" component={ObserverStackNavigator} />
-      <Stack.Screen name="Attacker" component={AttackerStackNavigator} />
-      <Stack.Screen name="Techniques" component={TechniquesStackNavigator} />
+    <Stack.Navigator screenOptions={{ headerShown: false }} id="RootStack">
+      <Stack.Screen name="Tabs" component={BottomNavigator} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
     </Stack.Navigator>
   );
 }
+
+

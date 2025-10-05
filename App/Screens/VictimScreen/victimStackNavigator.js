@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   useIsFocused,
   getFocusedRouteNameFromRoute,
   StackActions,
 } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { VictimScreen } from "./";
 import {
@@ -27,39 +27,31 @@ const screens = [
   { name: "ThreatOfForce", screen: ThreatOfForceScreen },
 ];
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function StackNavigator({ navigation, route }) {
-  const routeName = getFocusedRouteNameFromRoute(route);
   const isFocused = useIsFocused();
+  const stackRef = useRef(null);
 
   useEffect(() => {
-    const showInitialRoute =
-      isFocused && routeName !== undefined && routeName !== "Victim";
-    showInitialRoute && navigation.dispatch(StackActions.popToTop("Victim"));
-  }, [isFocused]);
-
-  return (
-    <Stack.Navigator initialRouteName="Victim">
-      <Stack.Screen
-        key={`v_initial`}
-        name="Victim"
-        component={VictimScreen}
-        options={{ headerShown: false }}
-      />
-      {screens.map((screen) => {
-        return (
-          <Stack.Screen
-            key={`v_${screen.name}`}
-            name={screen.name}
-            component={screen.screen}
-            options={{
-              title: null,
-              headerBackTitleVisible: false,
-            }}
-          />
-        );
-      })}
-    </Stack.Navigator>
-  );
+      if (!isFocused) return;
+      const focused = getFocusedRouteNameFromRoute(route) ?? "VictimMain";
+      if (focused !== "VictimMain") {
+        stackRef.current?.dispatch(StackActions.popToTop());
+      }
+    }, [isFocused, route]);
+  
+    return (
+     <Stack.Navigator
+       id="VictimStack" 
+       ref={stackRef}     
+       initialRouteName="VictimMain"
+       screenOptions={{ headerShown: false }} 
+     >
+       <Stack.Screen name="VictimMain" component={VictimScreen} />
+       {screens.map(({ name, screen }) => (
+         <Stack.Screen key={name} name={name} component={screen} />
+       ))}
+     </Stack.Navigator>
+   ); 
 }
