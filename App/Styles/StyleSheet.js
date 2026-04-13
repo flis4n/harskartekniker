@@ -90,7 +90,7 @@ export const textStyles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     ...FONTS,
-    fontSize: 40,
+    fontSize: 32,
     marginBottom: 30,
   },
   headerText: {

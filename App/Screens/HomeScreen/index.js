@@ -15,7 +15,7 @@ export default function HomeScreen({ navigation }) {
     <View style={{ paddingHorizontal: 2, paddingTop: 2 }}>
       {/* <MiunHeader /> */}
       <View style={[sectionStyles.textContainer, { marginTop: 8 }]}>
-        <Text style={h1}>Power Up!</Text>
+        <Text style={h1}>{translations.t("h_title")}</Text>
         <Text style={p}>{translations.t("h_text")}</Text>
       </View>
     </View>
